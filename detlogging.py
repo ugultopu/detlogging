@@ -22,8 +22,11 @@ def _logger():
               , '{message}'
               , border
               ]
-    logging.basicConfig(format='\n'.join(message), style='{')
-    logger = logging.getLogger()
+    logger = logging.getLogger('detlogger')
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter('\n'.join(message), style = '{')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
     adapter = _CustomAdapter(logger, '')
     return adapter.debug
