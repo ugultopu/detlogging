@@ -7,7 +7,7 @@ class _CustomAdapter(logging.LoggerAdapter):
     'connid' key, whose value in brackets is prepended to the log message.
     """
     def process(self, msg, kwargs):
-        return pformat(vars(msg)), kwargs
+        return pformat(vars(msg)), {'extra': {'omsg': msg}}
 
 
 def _logger():
@@ -17,6 +17,8 @@ def _logger():
     message = [ border
               , '{pathname} -> {funcName} L:{lineno}'
               , ''
+              , '{omsg}'
+              , '================================================================================='
               , '{message}'
               , border
               ]
