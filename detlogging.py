@@ -1,4 +1,5 @@
 import logging
+from inspect import getmembers
 from pprint import pformat
 
 class _CustomAdapter(logging.LoggerAdapter):
@@ -7,7 +8,7 @@ class _CustomAdapter(logging.LoggerAdapter):
     'connid' key, whose value in brackets is prepended to the log message.
     """
     def process(self, msg, kwargs):
-        return pformat(vars(msg)), {'extra': {'omsg': msg}}
+        return pformat(getmembers(msg)), {'extra': {'omsg': msg}}
 
 
 def _logger():
